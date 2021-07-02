@@ -1,0 +1,354 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://player/walk.gd" type="Script" id=1]
+[ext_resource path="res://player/state_machine.gd" type="Script" id=2]
+[ext_resource path="res://player/slide.gd" type="Script" id=3]
+[ext_resource path="res://player/jump.gd" type="Script" id=4]
+[ext_resource path="res://player/player.gd" type="Script" id=5]
+[ext_resource path="res://player/double.gd" type="Script" id=6]
+[ext_resource path="res://player/idle.gd" type="Script" id=7]
+[ext_resource path="res://assets/misc/sprite.png" type="Texture" id=8]
+[ext_resource path="res://player/dash.gd" type="Script" id=9]
+[ext_resource path="res://player/invert_jump.gd" type="Script" id=10]
+[ext_resource path="res://player/fall.gd" type="Script" id=11]
+
+[sub_resource type="Animation" id=1]
+resource_name = "dash"
+length = 0.1
+loop = true
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 1, 0.133333, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0.5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:shape:extents")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 8, 3 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -3 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.7, 1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fall"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.9 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:shape:extents")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "invert_jump"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.9, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.67451, 0.870588, 0.909804, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.9, 1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.1
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:flip_v")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.9 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 8, 8 )
+
+[node name="player" type="KinematicBody2D"]
+script = ExtResource( 5 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/dash = SubResource( 1 )
+anims/double = SubResource( 2 )
+anims/fall = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/invert_jump = SubResource( 5 )
+anims/jump = SubResource( 6 )
+anims/slide = SubResource( 7 )
+anims/walk = SubResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 8 )
+offset = Vector2( 0, -8 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -8 )
+shape = SubResource( 9 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="right1" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 10, 0 )
+
+[node name="left1" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -10, 0 )
+
+[node name="right2" type="RayCast2D" parent="."]
+position = Vector2( 0, -32 )
+enabled = true
+cast_to = Vector2( 10, 0 )
+
+[node name="left2" type="RayCast2D" parent="."]
+position = Vector2( 0, -32 )
+enabled = true
+cast_to = Vector2( -10, 0 )
+
+[node name="down" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 2 )
+
+[node name="top" type="RayCast2D" parent="."]
+position = Vector2( -9, -8 )
+enabled = true
+cast_to = Vector2( 0, -9 )
+
+[node name="top2" type="RayCast2D" parent="."]
+position = Vector2( 9, -8 )
+enabled = true
+cast_to = Vector2( 0, -9 )
+
+[node name="state_machine" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="idle" type="Node2D" parent="state_machine"]
+script = ExtResource( 7 )
+
+[node name="walk" type="Node2D" parent="state_machine"]
+script = ExtResource( 1 )
+
+[node name="jump" type="Node2D" parent="state_machine"]
+script = ExtResource( 4 )
+
+[node name="double" type="Node2D" parent="state_machine"]
+script = ExtResource( 6 )
+
+[node name="slide" type="Node2D" parent="state_machine"]
+script = ExtResource( 3 )
+
+[node name="dash" type="Node2D" parent="state_machine"]
+script = ExtResource( 9 )
+
+[node name="invert_jump" type="Node2D" parent="state_machine"]
+script = ExtResource( 10 )
+
+[node name="fall" type="Node2D" parent="state_machine"]
+script = ExtResource( 11 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
