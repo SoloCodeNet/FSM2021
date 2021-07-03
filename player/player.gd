@@ -17,9 +17,6 @@ var old_dir:= 0.0
 var jump_count:= 0
 
 var is_timed:= false
-
-func _ready() -> void:
-	pass
 	
 func _physics_process(delta: float) -> void:
 	if is_on_floor():jump_count=0
@@ -34,11 +31,10 @@ func move() -> void:
 	vel = move_and_slide_with_snap(vel, snap, Vector2.UP)
 	grv = 0.0 if is_on_floor() else DEFAULT_GRAV
 	
-func check_top()->bool:
-	return $top.is_colliding() or $top2.is_colliding()
-	
-func check_one_way()->bool:
-	return $down.is_colliding() and $down.get_collider().is_in_group("fall")
+func dash(_wait_time:float)->void:
+	old_dir = dir
+	is_timed = true
+	$Timer.start(_wait_time)
 	
 func fall_one_way()->void:
 	set_collision_layer_bit(0, false)
@@ -47,10 +43,25 @@ func fall_one_way()->void:
 	set_collision_layer_bit(0, true)
 	set_collision_mask_bit(0, true)
 
-func dash(_wait_time:float)->void:
-	old_dir = dir
-	is_timed = true
-	$Timer.start(_wait_time)
+func apply_dir(_dir:float) ->void:
+	dir = _dir
+	vel.x = lerp(vel.x, dir * spd, accel)
+
+func anim(_name:String)->void:
+	if dir < 0: $Sprite.flip_h = true
+	if dir > 0: $Sprite.flip_h = false
+	print(_name)
+	if _name != $anim.current_animation:
+		$anim.play(_name)
+
+func _on_Timer_timeout() -> void:
+	is_timed = false
+
+func check_top()->bool:
+	return $top.is_colliding() or $top2.is_colliding()
+	
+func check_one_way()->bool:
+	return $down.is_colliding() and $down.get_collider().is_in_group("fall")
 	
 func next_to_wall()-> bool:
 	return next_to_left() or next_to_right()
@@ -66,17 +77,3 @@ func next_to_top()->bool:
 
 func stop_dash()->bool:
 	return $right1.is_colliding() or $left1.is_colliding() 
-func calc_physic(_dir:float) ->void:
-	dir = _dir
-	vel.x = lerp(vel.x, dir * spd, accel)
-
-func anim(_name:String)->void:
-	if dir < 0: $Sprite.flip_h = true
-	if dir > 0: $Sprite.flip_h = false
-	print(_name)
-	if _name != $anim.current_animation:
-		$anim.play(_name)
-
-func _on_Timer_timeout() -> void:
-	is_timed = false
-

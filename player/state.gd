@@ -17,7 +17,9 @@ func enter()->void:
 
 func logic() ->void:
 	get_input()
-	if pl.check_one_way() and down:pl.fall_one_way()
+	if down and pl.check_one_way():
+		pl.fall_one_way()
+		
 	pl.move()
 	
 func get_transition()->State:

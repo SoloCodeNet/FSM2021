@@ -2,7 +2,7 @@ extends State
 
 func logic()->void:
 	.logic()
-	pl.calc_physic(dir)
+	pl.apply_dir(dir)
 	
 	if dir == 0:
 		next_state = _states["idle"]

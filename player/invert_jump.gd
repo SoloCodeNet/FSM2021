@@ -13,7 +13,7 @@ func logic()->void:
 		pl.accel = pl.DEFAULT_ACCEL * 0.01 
 
 	
-	pl.calc_physic(dir_invert)
+	pl.apply_dir(dir_invert)
 	
 #	if pl.is_timed == false:
 #		next_state = _states["idle"]

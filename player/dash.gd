@@ -5,7 +5,7 @@ func logic()->void:
 	pl.vel.y = 0.0
 	pl.accel = 0.5
 	pl.vel.x =  (pl.DEFAULT_SPEED * 3) * pl.old_dir
-	pl.calc_physic(pl.old_dir)
+	pl.apply_dir(pl.old_dir)
 	
 	if pl.stop_dash():
 		next_state = _states["idle"]

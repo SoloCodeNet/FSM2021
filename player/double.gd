@@ -3,7 +3,7 @@ extends State
 func logic()->void:
 	.logic()
 	
-	pl.calc_physic(dir)
+	pl.apply_dir(dir)
 	
 	if pl.is_on_wall() and pl.vel.y > 0 and abs(dir)> 0:
 		next_state = _states["slide"]

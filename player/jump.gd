@@ -2,7 +2,7 @@ extends State
 
 func logic()->void:
 	.logic()
-	pl.calc_physic(dir)
+	pl.apply_dir(dir)
 	
 	if dir != 0 and dash:
 		next_state = _states["dash"]
@@ -19,7 +19,8 @@ func logic()->void:
 		
 	if pl.is_on_floor():
 		next_state = _states["idle"]
-		
+
+
 func enter()->void:
 	pl.jump()
 	.enter()

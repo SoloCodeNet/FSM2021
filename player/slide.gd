@@ -5,7 +5,7 @@ func logic()->void:
 	.logic()
 	pl.vel.y = 0
 	pl.grv = pl.DEFAULT_GRAV /1.2
-	pl.calc_physic(dir)
+	pl.apply_dir(dir)
 	
 	if jump and not pl.next_to_top():
 		next_state = _states["invert_jump"]
